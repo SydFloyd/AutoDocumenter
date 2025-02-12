@@ -1,0 +1,22 @@
+name: "Process Changed Files"
+description: "Runs a Python script on each changed file in a commit"
+author: "SydFloyd"
+branding:
+  icon: "file-text"
+  color: "blue"
+
+inputs:
+  files:
+    description: "List of changed files"
+    required: true
+  secret:
+    description: "Api key"
+    required: true
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    OPENAI_API_KEY: ${{ inputs.secret }}
+  args:
+    - ${{ inputs.files }}
