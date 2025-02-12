@@ -1,18 +1,6 @@
-import os
 import re
 import sys
 from llm import LLM
-
-def get_python_files(repo_path):
-    """Recursively finds all Python files in a given repository, ignoring certain directories."""
-    ignored_dirs = {".venv", "__pycache__", ".git", "env", "venv"}
-    python_files = []
-    for root, dirs, files in os.walk(repo_path):
-        dirs[:] = [d for d in dirs if d not in ignored_dirs]
-        for file in files:
-            if file.endswith(".py"):
-                python_files.append(os.path.join(root, file))
-    return python_files
 
 def extract_existing_docstring(content):
     """Extracts the existing docstring if present."""
@@ -29,15 +17,15 @@ def generate_docstring(file_path, model):
     _, code_without_docstring = extract_existing_docstring(original_content)
     
     prompt = f"""
-    Analyze the following Python code and generate a concise but informative module-level docstring that explains its purpose and main functions.
-    1. provide only the text, do not put it in a code block or even inside triple quotes.
-    2. Don't provide any 
-    
-    Code:
-    {code_without_docstring}
-    
-    Generated docstring:
-    """
+Analyze the following Python code and generate a concise but informative module-level docstring that explains its purpose and main functions.
+1. Provide only the text, do not put it in a code block or inside triple quotes, I'll do this for you.
+2. Adhere to PEP 257 and best practices for clarity and maintainability.
+
+Code:
+{code_without_docstring}
+
+Generated docstring:
+"""
     response = model.prompt(prompt)
     return response.strip()
 
@@ -53,12 +41,12 @@ def replace_docstring(file_path, docstring):
         f.write(new_content)
 
 def update_docustring(file_path, model):
-    model = LLM()
     new_docstring = generate_docstring(file_path, model)
     replace_docstring(file_path, new_docstring)
     print(f"Updated docstring for {file_path}")
 
 if __name__ == "__main__":
+    m = LLM()
     for file in sys.argv[1:]:  # Accept multiple files as arguments
         print(f"Processing {file}...")
-        update_docustring(file)
+        update_docustring(file, m)

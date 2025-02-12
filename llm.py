@@ -1,9 +1,5 @@
-# from datetime import datetime as dt
-# import json
-# from pprint import pprint
-# from random import randint
-import os
 from openai import OpenAI
+import os
 
 class LLM:
     def __init__(self, 
@@ -54,3 +50,4 @@ class LLM:
             self.message_history.append({"role": "user", "content": prompt})
             self.message_history.append(answer)
         return answer.content
+    
