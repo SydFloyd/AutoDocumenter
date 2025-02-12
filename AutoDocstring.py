@@ -1,3 +1,18 @@
+"""
+Module for generating and updating Python module-level docstrings using a language model.
+
+This module provides functionality to extract existing docstrings, generate new ones using an LLM model, and replace or add docstrings in Python files. It is designed to automate the documentation process and ensure adherence to PEP 257 standards.
+
+Functions:
+    - extract_existing_docstring(content: str) -> Tuple[Optional[str], str]: Extracts existing docstrings from the content.
+    - generate_docstring(file_path: str, model: LLM) -> str: Generates a module-level docstring using the LLM model.
+    - replace_docstring(file_path: str, docstring: str): Replaces or adds a docstring in the specified file.
+    - update_docustring(file_path: str, model: LLM): Updates the docstring of a file using the LLM model.
+
+Classes:
+    - LLM: A placeholder class for the language model used to generate docstrings.
+"""
+
 import re
 import sys
 from llm import LLM
@@ -17,9 +32,31 @@ def generate_docstring(file_path, model):
     _, code_without_docstring = extract_existing_docstring(original_content)
     
     prompt = f"""
-Analyze the following Python code and generate a concise but informative module-level docstring that explains its purpose and main functions.
-1. Provide only the text, do not put it in a code block or inside triple quotes, I'll do this for you.
+Analyze the following Python code and generate a module-level docstring.
+1. Provide only the text, do not put it in a code block or inside triple quotes. Your response will be placed in the standard triple quotes automatically.
 2. Adhere to PEP 257 and best practices for clarity and maintainability.
+
+A module docstring should:
+
+Summarize the module’s purpose in a single sentence.
+Optionally include additional paragraphs with details.
+Optionally list key classes, functions, or exceptions if the module is large.
+Example:
+
+```
+Utilities for handling text processing.
+
+This module provides functions for text normalization, tokenization, and stopword removal.
+It is designed for use in NLP pipelines.
+
+Functions:
+    - normalize_text(text: str) -> str: Lowercases and removes punctuation.
+    - tokenize(text: str) -> List[str]: Splits text into words.
+    - remove_stopwords(words: List[str]) -> List[str]: Removes common stopwords.
+
+Exceptions:
+    - TextProcessingError: Raised when an invalid input is encountered.
+```
 
 Code:
 {code_without_docstring}

@@ -1,3 +1,12 @@
+"""
+Interface for interacting with OpenAI's language models using a customizable prompt structure.
+
+This module provides a class for managing interactions with OpenAI's language models, allowing for the configuration of model parameters, message history, and system messages. It is designed to facilitate the creation of dynamic and context-aware prompts for generating responses from the model.
+
+Classes:
+    - LLM: A class to configure and send prompts to OpenAI's language models, with options for message history and system message injection.
+"""
+
 from openai import OpenAI
 import os
 
