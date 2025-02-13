@@ -20,5 +20,3 @@ runs:
     - ${{ inputs.files }}
   env:
     OPENAI_API_KEY: ${{ inputs.secret }}
-  pre-entrypoint:
-    - run: ls -lah /app
