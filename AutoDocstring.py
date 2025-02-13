@@ -72,7 +72,7 @@ def replace_docstring(file_path, docstring):
         original_content = f.read()
     
     existing_docstring, remaining_content = extract_existing_docstring(original_content)
-    new_content = f'"""\n{docstring}\n"""\n\n' + remaining_content
+    new_content = f'"""\n{docstring}\n"""\n\n' + remaining_content + "\n"
     
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(new_content)
