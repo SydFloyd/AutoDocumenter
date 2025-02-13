@@ -16,7 +16,9 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
-  env:
-    OPENAI_API_KEY: ${{ inputs.secret }}
   args:
     - ${{ inputs.files }}
+  env:
+    OPENAI_API_KEY: ${{ inputs.secret }}
+  pre-entrypoint:
+    - run: ls -lah /app

@@ -1,14 +1,13 @@
 FROM python:3.11-slim
 
-WORKDIR /github/workspace
-COPY . .
+WORKDIR /app
+COPY . /app
 
-RUN ls -lah /github/workspace
-RUN cat /github/workspace/entrypoint.sh || echo "entrypoint.sh missing"
+RUN ls -lah /app
 
 RUN pip install --no-cache-dir -r requirements.txt
-RUN chmod +x /github/workspace/entrypoint.sh
-RUN ls -lah /github/workspace
+RUN chmod +x /app/entrypoint.sh
+RUN ls -lah /app
 
 
-ENTRYPOINT ["sh", "/github/workspace/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
