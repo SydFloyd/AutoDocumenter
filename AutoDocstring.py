@@ -83,8 +83,17 @@ def update_docustring(file_path, model):
     print(f"Updated docstring for {file_path}")
 
 if __name__ == "__main__":
-    m = LLM()
-    for file in sys.argv[1:]:  # Accept multiple files as arguments
-        if file.endswith(".py"):
-            print(f"Processing {file}...")
-            update_docustring(file, m)
+    try:
+        print(f"Script started with arguments: {sys.argv[1:]}")  # Debug print
+        if not sys.argv[1:]:
+            print("No files provided! Exiting.")
+            sys.exit(1)
+        
+        m = LLM()
+        for file in sys.argv[1:]:  # Accept multiple files as arguments
+            if file.endswith(".py"):
+                print(f"Processing {file}...")
+                update_docustring(file, m)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        sys.exit(1)

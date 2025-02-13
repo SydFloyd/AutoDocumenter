@@ -8,5 +8,6 @@ if [ ! -f "/app/entrypoint.sh" ]; then
     exit 1
 fi
 
-echo "Running script..."
-exec python /app/AutoDocstring.py "$@"
+echo "Running script with arguments: $@"
+python /app/AutoDocstring.py "$@"
+echo "Script execution completed."
