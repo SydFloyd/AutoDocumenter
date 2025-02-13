@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # RUN ls -lah /github/workspace
 
-RUN chmod +x entrypoint.sh
+RUN chmod +x /github/workspace/entrypoint.sh
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/github/workspace/entrypoint.sh"]
