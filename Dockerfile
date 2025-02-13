@@ -7,4 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN ls -lah /github/workspace
 
-ENTRYPOINT ["python", "AutoDocstring.py"]
+RUN chmod +x /github/workspace/entrypoint.sh
+
+ENTRYPOINT ["/github/workspace/entrypoint.sh"]
