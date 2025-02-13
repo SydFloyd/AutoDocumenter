@@ -20,4 +20,3 @@ runs:
     OPENAI_API_KEY: ${{ inputs.secret }}
   args:
     - ${{ inputs.files }}
-  workdir: /github/workspace
