@@ -83,8 +83,7 @@ def update_docustring(file_path, model):
     print(f"Updated docstring for {file_path}")
 
 if __name__ == "__main__":
-    print("AutoDocstring.py has been called.")
-    print("AutoDocstring.py received args:", sys.argv)
+    print("AutoDocstring.py called with args:", sys.argv)
     try:
         print(f"Script started with arguments: {sys.argv[1:]}")  # Debug print
         if not sys.argv[1:]:
@@ -94,6 +93,7 @@ if __name__ == "__main__":
         m = LLM()
         for file in sys.argv[1:]:  # Accept multiple files as arguments
             print("AutoDoctstring.py is looking at", file)
+            file = file.strip()
             if file.endswith(".py"):
                 print(f"Processing {file}...")
                 update_docustring(file, m)
