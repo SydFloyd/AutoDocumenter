@@ -10,6 +10,6 @@ echo "Python version:"
 python --version || echo "Python is missing!"
 
 echo "Running script with arguments: $@"
-# python /app/AutoDocstring.py "$@"
-PYTHONUNBUFFERED=1 python /app/AutoDocstring.py "$@" | tee /dev/tty
+python /app/AutoDocstring.py "$@"
+# PYTHONUNBUFFERED=1 python /app/AutoDocstring.py "$@" | tee /dev/tty
 echo "Script execution completed."
