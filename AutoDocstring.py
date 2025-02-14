@@ -93,9 +93,12 @@ if __name__ == "__main__":
         
         m = LLM()
         for file in sys.argv[1:]:  # Accept multiple files as arguments
+            print("AutoDoctstring.py is looking at", file)
             if file.endswith(".py"):
                 print(f"Processing {file}...")
                 update_docustring(file, m)
+            else:
+                print("File didn't ent with '.py', skipping...")
     except Exception as e:
         print(f"Error occurred: {e}")
         sys.exit(1)
