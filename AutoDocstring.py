@@ -12,7 +12,6 @@ Functions:
 Classes:
     - LLM: A placeholder class for the language model used to generate docstrings.
 """
-print("AutoDocstring.py has been run.")
 
 import re
 import sys
@@ -85,6 +84,7 @@ def update_docustring(file_path, model):
 
 if __name__ == "__main__":
     print("AutoDocstring.py has been called.")
+    print("AutoDocstring.py received args:", sys.argv)
     try:
         print(f"Script started with arguments: {sys.argv[1:]}")  # Debug print
         if not sys.argv[1:]:
