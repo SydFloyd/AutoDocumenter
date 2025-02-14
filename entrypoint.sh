@@ -6,6 +6,10 @@ if [ ! -f "/app/entrypoint.sh" ]; then
     exit 1
 fi
 
+echo "Python version:"
+python --version || echo "Python is missing!"
+
 echo "Running script with arguments: $@"
-python /app/AutoDocstring.py "$@"
+# python /app/AutoDocstring.py "$@"
+PYTHONUNBUFFERED=1 python /app/AutoDocstring.py "$@" | tee /dev/tty
 echo "Script execution completed."
