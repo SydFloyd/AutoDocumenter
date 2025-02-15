@@ -1,16 +1,18 @@
 """
-Module for generating and updating Python module-level docstrings using a language model.
+Tools for automating Python module-level docstring generation and updates.
 
-This module provides functionality to extract existing docstrings, generate new ones using an LLM model, and replace or add docstrings in Python files. It is designed to automate the documentation process and ensure adherence to PEP 257 standards.
+This module facilitates the extraction of existing docstrings, the generation of new ones using a language model, and the replacement or addition of docstrings in Python files. It aims to automate documentation processes while ensuring compliance with PEP 257 standards and best practices for clarity and maintainability.
 
 Functions:
     - extract_existing_docstring(content: str) -> Tuple[Optional[str], str]: Extracts existing docstrings from the content.
-    - generate_docstring(file_path: str, model: LLM) -> str: Generates a module-level docstring using the LLM model.
+    - verify_docstring(file_path: str, model: LLM, refinement_depth: int, depth: int) -> Tuple[bool, Optional[str]]: Verifies if a docstring needs updating.
+    - generate_docstring(file_path: str, reason: str, model: LLM) -> str: Generates a module-level docstring using the LLM model.
     - replace_docstring(file_path: str, docstring: str): Replaces or adds a docstring in the specified file.
-    - update_docustring(file_path: str, model: LLM): Updates the docstring of a file using the LLM model.
+    - update_docstring(file_path: str, model: LLM, refinement_depth: int) -> bool: Updates the docstring of a file using the LLM model.
+    - auto_docstring(file_path: str, model: LLM, depth: int): Iteratively refines the docstring to the specified depth.
 
 Classes:
-    - LLM: A placeholder class for the language model used to generate docstrings.
+    - LLM: Represents the language model used to generate and refine docstrings.
 """
 
 MAX_RETRY_DEPTH = 3
@@ -70,7 +72,7 @@ The docstring can require an update for two reasons:
         guidance = """
 The docstring requires an update only if it doesn't follow PEP 257 or it deviates from best practices for clarity and maintainability.
 """
-    print("GUIDANCE:", guidance)
+
     prompt = f"""
 You are an expert developer who specializes in good documentation. 
 Your current task is to determine if the module docstring needs to be updated.
@@ -88,10 +90,10 @@ Respond 'True' if the docstring needs to be updated, otherwise 'False', followed
 """
     response = model.prompt(prompt).strip()
     if response.startswith('True'):
-        print(f"\n\nDocstring needs update.  Reasoning: {response}")
+        # print(f"\n\nDocstring needs update.  Reasoning: {response}")
         return True, response[5:]
     elif response.startswith('False'):
-        print(f"\n\nDocstring update not required.  Reasoning: {response}")
+        # print(f"\n\nDocstring update not required.  Reasoning: {response}")
         return False, None
     else:
         print(f"Verifying docstring failed, retring (depth={depth})")
@@ -171,3 +173,4 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error occurred: {e}")
         sys.exit(1)
+

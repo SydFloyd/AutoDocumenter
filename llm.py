@@ -1,10 +1,14 @@
 """
-Interface for interacting with OpenAI's language models using a customizable prompt structure.
+Interface for configuring and interacting with OpenAI language models using dynamic prompts.
 
-This module provides a class for managing interactions with OpenAI's language models, allowing for the configuration of model parameters, message history, and system messages. It is designed to facilitate the creation of dynamic and context-aware prompts for generating responses from the model.
+This module provides a class to manage interactions with OpenAI models, enabling configuration of model parameters, message history, and system messages for generating context-aware responses. It supports message compilation and history management to facilitate dynamic prompt creation. The module relies on the OpenAI API for generating responses.
 
 Classes:
-    - LLM: A class to configure and send prompts to OpenAI's language models, with options for message history and system message injection.
+    - LLM: Manages prompt configuration and interaction with OpenAI models, including message history and system message handling. It provides methods for compiling messages and generating responses.
+
+Functions:
+    - compile_messages(prompt: str) -> List[dict]: Compiles a list of messages for the model, incorporating system and user inputs.
+    - prompt(prompt: str) -> str: Sends a prompt to the OpenAI model and returns the generated response.
 """
 
 from openai import OpenAI
@@ -60,3 +64,4 @@ class LLM:
             self.message_history.append(answer)
         return answer.content
     
+
