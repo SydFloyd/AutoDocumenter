@@ -169,7 +169,7 @@ if __name__ == "__main__":
                 print(f"Processing {file}...")
                 auto_docstring(file, m)
             else:
-                print("File didn't ent with '.py', skipping...")
+                print("File didn't end with '.py', skipping...")
     except Exception as e:
         print(f"Error occurred: {e}")
         sys.exit(1)
